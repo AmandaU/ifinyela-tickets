@@ -1,32 +1,60 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Navigation ></Navigation>
+      <div class="fullpage" >
+        <div class="banner">
+            <div class=" backimage" v-bind:style="{ 'background-image': 'url(' + imageurl + ')' }"></div>
+            <img class="frontimage" v-bind:src="imageurl"  alt=""  /> 
+        </div>
+        <router-view />
+        <BottomNav></BottomNav>
+      </div>
+      
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import BottomNav from './components/BottomNav'
+import Navigation from './components/Navigation'
+//import { EventBus } from './eventbus.js';
+
+export default {
+  name: 'app',
+  components: {
+    'Navigation': Navigation,
+    'BottomNav': BottomNav
+  },
+
+  data: function () {
+  return {
+    imageCount: 3,
+       imageurl: require('./assets/logo.png') ,
+   }
+  },
+
+  mounted() {
+
+    this.$eventHub.$on('eventimageurl', imageurl => {
+  
+   if(imageurl == '')
+   {
+         this.imageurl = require('./assets/logo.png'); 
+   }
+   else
+   {
+     this.imageurl = imageurl;
+   }
+  })
+},
+
+beforeDestroy: function() {
+    // Clean up
+    this.$eventHub.$off('eventimageurl', '');
+    
+  },
 }
+</script>
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+<style lang="scss" scoped>
+  @import "~@/styles/styles.scss";
 </style>
