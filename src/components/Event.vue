@@ -10,7 +10,7 @@
       <div class="eventblock">
           <br>
            <div class="pricebreakblock">
-             <div  v-for="pricebreak in pricebreaks" :key="pricebreak['.key'] ">
+             <div  v-for="pricebreak in pricebreaks" :key="pricebreak.key">
               <div class="pricebreakrow">
             
                 <div class="pricebreakcolumn1">
@@ -34,7 +34,7 @@
                         </div>   
                   
                     </div> 
-                </div>  
+                </div>    
 
                  <div class="thinline"></div>  
 
@@ -46,7 +46,7 @@
              <div class="checkoutblock">
               <h2>Checkout</h2>
 
-              <div  v-for="pricebreak in pricebreaks" :key="pricebreak['.key'] ">
+              <div  v-for="pricebreak in pricebreaks" :key="pricebreak.key ">
                 <div  class="checkoutrow ">
                 
                   <div  class="checkouttickets ">
@@ -95,6 +95,11 @@
 </template>
 
 <script>
+   /* eslint-disable  no-undef */
+/* eslint-disable  no-debugger */ 
+/* eslint-disable  no-empty-pattern */ 
+/* eslint-disable  no-unused-vars */
+
   import CubeSpin from 'vue-loading-spinner/src/components/ScaleOut'
   import firebase from '../firebase-config';
   import {  db } from '../firebase-config';
@@ -109,15 +114,15 @@ export default {
  
   data: function () {
     return {
-      event:{
+      event: {
         name: "",
         from: "",
         to: "",
         venueaname: "",
         venueaddress: "",
-        venuelatlong: "",
-      },
-       busy: false,
+        venuelatlong: ""}
+        ,
+      busy: false,
       events: [],
       pricebreaks: [],
       shoppingcart: {},
@@ -129,30 +134,88 @@ export default {
       }
   },
 
-  firebase () {
-     let eventid = Number(window.location.hash.substring(8,9) );
-    return {
-      promos: db.ref('promotions'),
-      tickets: db.ref('tickets'),
-      pricebreaks: {
-       source:  db.ref('pricebreaks').orderByChild("eventid").equalTo(eventid) ,
-          readyCallback: () =>   
-          {
-           this.pricebreaks.forEach((pricebreak) => {
-              pricebreak.ticketHolders = [];
-           });
-         },
-      },
-      events: {
-        source: db.ref('events').orderByChild("id").equalTo(eventid),
-          readyCallback: () =>   
-          {
-           this.event = this.events[0];
-           this.setEvent();
-          },
-        },
-      }
-    },
+  created() {
+     let eventid = Number(window.location.pathname.substring(7,9) );
+     var promosRef = db.ref('/promotions')
+     var ticketsRef = db.ref('/tickets')
+     var eventsRef = db.ref('/events').orderByChild("id").equalTo(eventid)
+     var priceBreaksRef =  db.ref('/pricebreaks').orderByChild("eventid").equalTo(eventid) 
+
+  let self = this
+  eventsRef.once("value")
+  .then(function(snapshot) {
+     snapshot.forEach((childSnapshot) => {
+            var key = childSnapshot.key;
+            self.event = childSnapshot.val();
+        });
+  });
+
+  // ticketsRef.once('value', (snapshot) => {
+  //   let exists = snapshot.exists()
+  //   const data = snapshot.val();
+  //   if (data) {
+  //    this.tickets = data
+  //   }
+  // });
+
+
+   priceBreaksRef.once("value")
+  .then(function(snapshot) {
+     snapshot.forEach((childSnapshot) => {
+            var key = childSnapshot.key;
+            let pricebreak = childSnapshot.val()
+             pricebreak.ticketHolders = [];
+            self.pricebreaks.push(pricebreak)
+           
+        });
+  });
+
+   promosRef.once("value")
+  .then(function(snapshot) {
+     snapshot.forEach((childSnapshot) => {
+            var key = childSnapshot.key;
+            self.promos.push(childSnapshot.val())
+           
+        });
+  });
+
+
+  //  promosRef.once('value', (snapshot) => {
+  //   let exists = snapshot.exists()
+  //   const data = snapshot.val();
+  //   if (data) {
+  //   this.promos = data
+  //   }
+  // });
+  
+ },
+
+  // firebase () {
+  //   debugger
+  //    let eventid = Number(window.location.hash.substring(8,9) );
+  //   return {
+  //     promos: db.ref('promotions'),
+  //     tickets: db.ref('tickets'),
+  //     pricebreaks: {
+  //      source:  db.ref('pricebreaks').orderByChild("eventid").equalTo(eventid) ,
+  //         readyCallback: () =>   
+  //         {
+  //           debugger
+  //          this.pricebreaks.forEach((pricebreak) => {
+  //             pricebreak.ticketHolders = [];
+  //          });
+  //        },
+  //     },
+  //     events: {
+  //       source: db.ref('events').orderByChild("id").equalTo(eventid),
+  //         readyCallback: () =>   
+  //         {
+  //          this.event = this.events[0];
+  //          this.setEvent();
+  //         },
+  //       },
+  //     }
+  //   },
  
   methods: 
   { 

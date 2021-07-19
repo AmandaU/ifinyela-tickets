@@ -1,3 +1,4 @@
+
 <template>
       <div class="centralcontainer">
        <div class="centreblock">
@@ -51,21 +52,22 @@
 </template>
 
 <script>
+/* eslint-disable  vue/require-prop-type-constructor */
+/* eslint-disable  no-unused-vars */
+/* eslint-disable  no-undef */
 
   import Media from 'vue-media'
-  import firebase from '../firebase-config';
   import {zapperConfig} from '../config';
   import {  db } from '../firebase-config';
  // import axios from "axios";
-  import md5 from "js-md5";
-  import qs from "qs";
+  // import md5 from "js-md5";
+  // import qs from "qs";
   //import zapper from 'zapperjs'
 
   
 export default {
   name: 'checkout',
   components: {
-      CubeSpin,
       Media
     },
 
@@ -272,46 +274,46 @@ watch: {
 
   methods: {
 
-    loadZapperV2()
-    {
-        const paymentWidget = new zapper.payments.PaymentWidget(
-        "Zapper",
-        {
-            merchantId: 39547,
-            siteId: 47945,
-            amount: 10.50,
-            reference: "JA12345" 
-        })
+    // loadZapperV2()
+    // {
+    //     const paymentWidget = new zapper.payments.PaymentWidget(
+    //     "Zapper",
+    //     {
+    //         merchantId: 39547,
+    //         siteId: 47945,
+    //         amount: 10.50,
+    //         reference: "JA12345" 
+    //     })
 
-        //  const paymentWidget = new zapper.payments.PaymentWidget(
-        // "Zapper",
-        // {
-        //     merchantId: this.zapperConfig.merchantId,
-        //     siteId: this.zapperConfig.siteId,
-        //     amount: this.purchasevalue,
-        //     reference: this.shoppingcart.reference 
-        // })
+    //     //  const paymentWidget = new zapper.payments.PaymentWidget(
+    //     // "Zapper",
+    //     // {
+    //     //     merchantId: this.zapperConfig.merchantId,
+    //     //     siteId: this.zapperConfig.siteId,
+    //     //     amount: this.purchasevalue,
+    //     //     reference: this.shoppingcart.reference 
+    //     // })
 
-        // paymentWidget.on('payment', ({ status, paidAmount, zapperId, reference }) => {    
-        //    self.shoppingcart.zapperPaymentMethod = true;
-        //   debugger;
-        //   if(status == 1)
-        //   {
-        //     self.shoppingcart.totalPaid = paidAmount;
-        //     self.shoppingcart.zapperPaymentId  = zapperId;
-        //     self.shoppingcart.zapperReference = reference;
-        //     self.saveTicket(true,self);
-        //      self.$router.replace({ name: 'Success', params: {ticketparam: self.shoppingcart.reference}});
-        //   }
-        //   else
-        //   {
-        //     self.shoppingcart.zapperPaymentId = zapperId;
-        //      self.shoppingcart.zapperReference = reference;
-        //     localStorage.setItem(self.shoppingcart.reference, JSON.stringify(self.shoppingcart));
-        //     self.$router.replace({ name: 'Cancel', params: {ticketid: self.shoppingcart.reference}});
-        //   }
-        //})
-    },
+    //     // paymentWidget.on('payment', ({ status, paidAmount, zapperId, reference }) => {    
+    //     //    self.shoppingcart.zapperPaymentMethod = true;
+    //     //   debugger;
+    //     //   if(status == 1)
+    //     //   {
+    //     //     self.shoppingcart.totalPaid = paidAmount;
+    //     //     self.shoppingcart.zapperPaymentId  = zapperId;
+    //     //     self.shoppingcart.zapperReference = reference;
+    //     //     self.saveTicket(true,self);
+    //     //      self.$router.replace({ name: 'Success', params: {ticketparam: self.shoppingcart.reference}});
+    //     //   }
+    //     //   else
+    //     //   {
+    //     //     self.shoppingcart.zapperPaymentId = zapperId;
+    //     //      self.shoppingcart.zapperReference = reference;
+    //     //     localStorage.setItem(self.shoppingcart.reference, JSON.stringify(self.shoppingcart));
+    //     //     self.$router.replace({ name: 'Cancel', params: {ticketid: self.shoppingcart.reference}});
+    //     //   }
+    //     //})
+    // },
 
     loadZapperScript()
     {

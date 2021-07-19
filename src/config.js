@@ -7,6 +7,7 @@ export const config = {
     storageBucket: "jayla-tickets.appspot.com",
     messagingSenderId: "873814667748",
     appId: "1:873814667748:web:25563f8730d3bc58c4d7f1"
+
 };
 
 //test

@@ -1,29 +1,34 @@
 <template>
-  <div class="signup" >
-    <div class="centralcontainer" >
-      <div class="centreblock">
-          <cube-spin v-if="busy"></cube-spin>
+  <div>
+    <div class="container" >
+          <!-- <cube-spin v-if="busy"></cube-spin> -->
           <div class="infoblock">
-          <p>Let's create a new account !</p>
-          <input type="text" v-model="newUser.firstname" placeholder="First name" class="infoblockitem"><br>
-          <input type="text" v-model="newUser.surname" placeholder="Surname" class="infoblockitem"><br>
-          <input type="text" v-model="newUser.email" placeholder="Email" class="infoblockitem"><br>
-          <input type="password" v-model="newUser.password" placeholder="Password" class="infoblockitem"><br>
-          <vue-tel-input class="tel"  v-model="newUser.cellphone"
-                        @onInput="onInput"
-                        :preferredCountries="['za']">
-          </vue-tel-input><br>
-          <button @click="signUp" class="infoblockitem">Sign Up</button>
-          <p>or go back to <span @click="goBackToLogin()" style="color:blue;cursor:pointer">login</span></p>
-        </div>
-     </div>
-   </div>
+            <h4>CREATE AN ACCOUNT</h4>
+            <input type="text" v-model="newUser.firstname" placeholder="First name" class="infoblockitem"><br>
+            <input type="text" v-model="newUser.surname" placeholder="Surname" class="infoblockitem"><br>
+            <input type="text" v-model="newUser.email" placeholder="Email" class="infoblockitem"><br>
+            <input type="password" v-model="newUser.password" placeholder="Password" class="infoblockitem"><br><br>
+            <vue-tel-input class="tel" style="height:40px;margin-top:-10px" v-model="newUser.cellphone"
+                          @onInput="onInput"
+                          :preferredCountries="['za']">
+            </vue-tel-input><br>
+            <button @click="signUp" class="buttonstyle">SIGN UP</button>
+           <div style="display:flex;flex-direction:row;vertical-align:middle">
+              <input  type="checkbox" id="checkbox" v-model="subscribe" >
+              <label  for="checkbox" style="padding-left:10px;padding-top:12px">would you like to subscribe to our newsletter?</label>
+            </div>
+            <p>or go back to <span @click="goBackToLogin()" style="color:blue;cursor:pointer">login</span></p>
+
+            
+          </div>
+    </div>
   </div>
+  
 </template>
 
  <script>
-
-   import CubeSpin from 'vue-loading-spinner/src/components/ScaleOut'
+/* eslint-disable  no-undef */
+/* eslint-disable  vue/require-prop-type-constructor */
    import firebase from '../firebase-config';
    import {  db } from '../firebase-config';
   
@@ -32,7 +37,7 @@
  export default {
     name: 'signup',
     components: {
-      CubeSpin
+     
     },
      props: {
        ticketref: '',
@@ -71,7 +76,7 @@ methods: {
       
   goBackToLogin ()
   {
-    this.$router.replace({ name: 'Login', params: {ticketref: this.$props.shoppingcart.reference}});
+    this.$router.replace({ name: 'Login', params: {ticketref: this.$props.ticketref}});
   },
 
   logout: function() {
@@ -110,7 +115,7 @@ methods: {
     let self = this;
   
     firebase.auth().createUserWithEmailAndPassword(this.newUser.email, this.newUser.password).then(
-      (user) => {
+      () => {
           alert('Your account has been created')
            this.$eventHub.$emit('loggedin', '');
             self.$eventHub.$emit('isAdmin', false);
@@ -146,6 +151,8 @@ methods: {
   };
 </script>
 
- <style lang="scss" scoped>
-  @import "~@/styles/styles.scss";
+  <style lang="scss" scoped>
+  @import "~@/styles/commonstyle.scss";
+  @import "~@/styles/loginstyle.scss";
+ 
 </style>

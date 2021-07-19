@@ -1,0 +1,61 @@
+
+.container {
+    max-width: 100vw;
+    min-height : 89vh;
+    max-height: 89vh;
+    height: 100%;
+    width:100%;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-self : center;
+    padding-top : 0px;
+    padding-bottom : 0px;
+}
+
+.infoblockitem {
+    margin-top: 10px;
+    width: 100%;
+    max-width:97%;
+    cursor: pointer;
+    height:30px;
+    align-self : center;
+    border: 1px solid $color-lightLineColor;
+  }
+  
+  .infoblock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self : center;
+    text-align: center;
+    align-content: center;
+    margin: auto;
+    display: flex;
+    height: auto;
+    width: 400px;
+    transition: all 2000ms ease-in-out;
+  }
+
+    @media all and (max-width:600px) {
+
+      .container {
+        max-width: 90vw;
+        min-height : 89vh;
+        max-height: 89vh;
+        height: 100%;
+        width:90%;
+        display: flex;
+        overflow: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-self : center;
+        padding-top : 0px;
+        padding-bottom : 0px;
+    }
+
+    .infoblock {
+      width: 90%;
+     }
+  }

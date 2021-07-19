@@ -21,3 +21,6 @@ firebase.auth().onAuthStateChanged(() => {
     
   }
 });
+
+{/* <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.2.4/firebase-database.js"></script> */}

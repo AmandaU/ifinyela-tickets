@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+   
     <Navigation ></Navigation>
       <div class="fullpage" >
         <div class="banner">
@@ -14,6 +15,7 @@
 </template>
 
 <script>
+/* eslint-disable  no-undef */
 import BottomNav from './components/BottomNav'
 import Navigation from './components/Navigation'
 //import { EventBus } from './eventbus.js';
@@ -31,6 +33,17 @@ export default {
        imageurl: require('./assets/logo.png') ,
    }
   },
+
+
+// created() {
+//   this.$loadScript("https://link.to.your.script?key=YOUR_API_KEY")
+//     .then(() => {
+//       this.initiateMapQuest()
+//     })
+//     .catch(() => {
+//       // Failed to fetch script
+//     })
+// },
 
   mounted() {
 
@@ -53,6 +66,8 @@ beforeDestroy: function() {
     
   },
 }
+
+
 </script>
 
 <style lang="scss" scoped>

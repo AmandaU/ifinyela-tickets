@@ -1,5 +1,5 @@
 
-
+/* eslint-disable  no-undef */
 /* eslint-disable  vue/require-prop-type-constructor */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-dupe-keys */
@@ -8,7 +8,9 @@ import Vue from 'vue';
 //import { createRouter, createWebHashHistory } from "vue-router";
 import Router from 'vue-router';
 //import VueTelInput from 'vue-tel-input';
-import VueFire from 'vuefire';
+import { firestorePlugin } from 'vuefire'
+Vue.use(firestorePlugin)
+
 import LoadScript from 'vue-plugin-load-script';
 import Home from '../components/Home.vue';
 import Login from '../components/Login.vue';
@@ -22,14 +24,12 @@ import Cancel from '../components/Cancel.vue';
 import Promoter from '../components/Promoter.vue';
 import ManageEvent from '../components/ManageEvent.vue';
 import ScanQR from '../components/ScanQR.vue';
-
-Vue.use(VueFire);
-
 //Vue.use(VueTelInput);
 
 Vue.use(LoadScript);
 
 const router = new Router({
+  mode: 'history',
   //const router = createRouter({
    // history: createWebHashHistory(),
   routes: [
